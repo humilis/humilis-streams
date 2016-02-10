@@ -77,7 +77,7 @@ suite without deploying first. Keep reading for deployment instructions.
 make create 
 ```
 
-This will deploy the pipeline on a _humilis_ stage called `TEST`. You can decide
+This will deploy to a _humilis_ stage called `TEST`. You can decide
 to deploy on a different stage (e.g. `DEV`) by running:
 
 ```
