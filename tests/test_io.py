@@ -12,11 +12,6 @@ import boto3
 from humilis.environment import Environment
 
 
-STAGE = "TEST"
-ENVIRONMENT_PATH = "io-streams.yaml"
-LAYER_NAME = "io-streams"
-
-
 @pytest.fixture(scope="session", params=[1, 10, 100])
 def events(request):
     """A batch of events to be ingested by Kinesis."""
@@ -41,17 +36,17 @@ def payloads(events):
 
 
 @pytest.fixture(scope="session")
-def environment():
+def environment(settings):
     """The io-streams-test humilis environment."""
-    env = Environment(ENVIRONMENT_PATH, stage=STAGE)
+    env = Environment(settings.environment_path, stage=settings.stage)
     env.create()
     return env
 
 
 @pytest.fixture(scope="session", params=['InputStream', 'OutputStream'])
-def io_stream_name(environment, request):
+def io_stream_name(settings, environment, request):
     """The name of the input and output streams in the rawpipe layer."""
-    layer = [l for l in environment.layers if l.name == LAYER_NAME][0]
+    layer = [l for l in environment.layers if l.name == settings.layer_name][0]
     return layer.outputs.get(request.param)
 
 
