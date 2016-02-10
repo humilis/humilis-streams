@@ -1,0 +1,9 @@
+---
+humilisenv:
+    description:
+        A wrapper environment for testing the firehose-resource layer
+    layers:
+        - {layer: firehose-rsc}
+        # A dummy layer that creates a Firehose stream to test the custom
+        # resource we created in the previous layer.
+        - {layer: firehose}

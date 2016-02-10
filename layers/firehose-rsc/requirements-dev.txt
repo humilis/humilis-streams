@@ -1,0 +1,14 @@
+# The specific version of boto3 available in the Lambda environment
+# http://docs.aws.amazon.com/lambda/latest/dg/current-supported-versions.html
+boto3==1.2.1
+
+# dev utilities
+ipython
+ipdb
+pdbpp
+
+# test requirements
+pytest
+pytest-cov
+mock
+tox
