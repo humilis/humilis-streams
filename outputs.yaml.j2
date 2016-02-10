@@ -1,0 +1,38 @@
+---
+outputs:
+    InputStream:
+        Description:
+            The ID of the input Kinesis stream.
+        Value:
+            Ref: InputStream
+    InputStreamArn:
+        Description:
+            The Arn of the input Kinesis stream.
+        Value:
+            "Fn::GetAtt":
+              - InputStream
+              - Arn
+    OutputStream:
+        Description:
+            The ID of the output Kinesis stream.
+        Value:
+            Ref: OutputStream
+    OutputStreamArn:
+        Description:
+            The Arn of the output Kinesis stream.
+        Value:
+            "Fn::GetAtt":
+              - OutputStream
+              - Arn
+    DeliveryStream:
+        Description:
+            The name of the delivery stream storing raw events in S3
+        Value:
+            Ref: DeliveryStream
+    DeliveryStreamArn:
+        Description:
+            The Arn of the delivery stream storing raw events in S3
+        Value:
+            "Fn::GetAtt":
+              - DeliveryStream
+              - Arn

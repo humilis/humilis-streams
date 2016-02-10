@@ -19,11 +19,11 @@ clean:
 	rm layers/io-streams
 
 create:
-	humilis create --stage TEST io-streams.yaml
+	humilis create --stage TEST io-streams-test.yaml
 
 
 update:
-	humilis update --stage TEST io-streams.yaml
+	humilis update --stage TEST io-streams-test.yaml
 
 
 delete:

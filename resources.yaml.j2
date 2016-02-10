@@ -1,0 +1,60 @@
+---
+resources:
+    InputStream:
+        Type: 'AWS::Kinesis::Stream'
+        Properties:
+            ShardCount: {{ input_stream.shard_count }}
+    OutputStream:
+        Type: 'AWS::Kinesis::Stream'
+        Properties:
+            ShardCount: {{ output_stream.shard_count }}
+    DeliveryStream:
+      Type: 'Custom::Firehose'
+      Properties:
+        ServiceToken: {{firehose_resource_function_arn}}
+        S3DestinationConfiguration:
+          RoleARN:
+            "Fn::GetAtt":
+              - DeliveryStreamRole
+              - Arn
+          BucketARN:
+            "Fn::Join":
+              - ""
+              - ["arn:aws:s3:::", "{{s3_config.bucket_name}}"]
+          Prefix: {{pipeline_name}}/
+          BufferingHints:
+            SizeInMBs: {{s3_config.buffer_mbs}}
+            IntervalInSeconds: {{s3_config.buffer_seconds}}
+          CompressionFormat: {{s3_config.compression}}
+    DeliveryStreamRole:
+      Type: 'AWS::IAM::Role'
+      Properties:
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal:
+                  Service: 'firehose.amazonaws.com'
+              Action: 'sts:AssumeRole'
+        {# Keep all environment roles under the same path #}
+        Path: {{ "/{}/".format(_env.name) }}
+        Policies:
+          - PolicyName: root
+            PolicyDocument:
+              Version: "2012-10-17"
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - "s3:ListBucket"
+                  Resource:
+                    "Fn::Join":
+                      - ""
+                      - ["arn:aws:s3:::", "{{s3_config.bucket_name}}"]
+                - Effect: Allow
+                  Action:
+                    - "s3:GetObject"
+                    - "s3:PutObject"
+                  Resource:
+                    "Fn::Join":
+                      - ""
+                      - ["arn:aws:s3:::", "{{s3_config.bucket_name}}/{{pipeline_name}}/*"]
