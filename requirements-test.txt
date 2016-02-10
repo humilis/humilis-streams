@@ -1,0 +1,6 @@
+# test requirements
+pytest
+pytest-cov
+mock
+tox
+humilis==0.1.9

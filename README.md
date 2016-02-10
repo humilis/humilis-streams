@@ -59,25 +59,19 @@ make develop
 
 ## Testing
 
-To run the local test suite:
+To run the test suite (requires deployment):
 
 ```
 make test
 ```
 
-To run the integration test suite (requires deployment):
-
-```
-make testi
-```
-
-Keep reading for deployment instructions.
+This layer does not contain any logic beyond the deployment of several AWS 
+resources. Therefore there is no local test suite and the tests simply assess 
+that the deployment work as expected. This means that you cannot run the test 
+suite without deploying first. Keep reading for deployment instructions.
 
 
 ## Deployment
-
-You need to make a _dummy_ deployment to the AWS cloud in order to run the
-integration test suite. To do that:
 
 ```
 make create 
@@ -90,8 +84,7 @@ to deploy on a different stage (e.g. `DEV`) by running:
 make STAGE=DEV create
 ```
 
-Note however that the integration test suite expects a deployment in a `TEST`
-stage.
+Note however that the test suite expects a deployment in a `TEST` stage.
 
 Remember to delete the deployment when you are done with testing:
 
@@ -101,6 +94,12 @@ make delete
 
 Alternatively you can just run `make clean` to delete the deployment and the
 development virtualenv.
+
+To deploy updates to an existing deployment run:
+
+```
+make update
+```
 
 
 ## More information

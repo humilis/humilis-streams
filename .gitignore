@@ -1,0 +1,10 @@
+.env
+.tox
+.coverage
+__pycache__
+*.egg-info
+.cache
+*.pyc
+
+# Ignore the symlink
+layers/lambda-pipeline
