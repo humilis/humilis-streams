@@ -1,3 +1,4 @@
+ENV_FILE := io-streams-test.yaml
 # create virtual environment
 .env:
 	virtualenv .env -p python3.4
@@ -19,12 +20,12 @@ clean:
 	rm layers/io-streams
 
 create:
-	humilis create --stage TEST io-streams-test.yaml
+	humilis create --stage TEST $(ENV_FILE)
 
 
 update:
-	humilis update --stage TEST io-streams-test.yaml
+	humilis update --stage TEST $(ENV_FILE)
 
 
 delete:
-	humilis delete --stage TEST io-streams.yaml
+	humilis delete --stage TEST $(ENV_FILE)
