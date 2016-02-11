@@ -24,15 +24,3 @@ outputs:
             "Fn::GetAtt":
               - OutputStream
               - Arn
-    DeliveryStream:
-        Description:
-            The name of the delivery stream storing raw events in S3
-        Value:
-            Ref: DeliveryStream
-    DeliveryStreamArn:
-        Description:
-            The Arn of the delivery stream storing raw events in S3
-        Value:
-            "Fn::GetAtt":
-              - DeliveryStream
-              - Arn
