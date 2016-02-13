@@ -1,38 +1,28 @@
 ---
 outputs:
-    InputStream:
+    {% for io in ['Input', 'Output'] %}
+    {{io}}Stream:
         Description:
-            The ID of the input Kinesis stream.
+            The ID of the {{io}} Kinesis stream.
         Value:
-            Ref: InputStream
-    InputStreamArn:
+            Ref: {{io}}Stream
+    {{io}}StreamArn:
         Description:
-            The Arn of the input Kinesis stream.
-        Value:
-            "Fn::GetAtt":
-              - InputStream
-              - Arn
-    OutputStream:
-        Description:
-            The ID of the output Kinesis stream.
-        Value:
-            Ref: OutputStream
-    OutputStreamArn:
-        Description:
-            The Arn of the output Kinesis stream.
+            The Arn of the {{io}} Kinesis stream.
         Value:
             "Fn::GetAtt":
-              - OutputStream
+              - {{io}}Stream
               - Arn
-    DeliveryStream:
+    {{io}}DeliveryStream:
         Description:
-            The name of the delivery stream storing raw events in S3
+            The name of the delivery stream storing {{io.lower()}} events in S3.
         Value:
-            Ref: DeliveryStream
-    DeliveryStreamArn:
+            Ref: {{io}}DeliveryStream
+    {{io}}DeliveryStreamArn:
         Description:
-            The Arn of the delivery stream storing raw events in S3
+            The Arn of the delivery stream storing {{io.lower()}} events in S3.
         Value:
             "Fn::GetAtt":
-              - DeliveryStream
+              - {{io}}DeliveryStream
               - Arn
+    {% endfor %}

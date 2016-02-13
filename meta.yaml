@@ -6,10 +6,7 @@ meta:
         # Depends on the S3 bucket deployed by the storage layer
         - storage
     parameters:
-        pipeline_name: 
-            description: The name of the event processing pipeline
-            value: rawpipe
-        s3_config:
+        delivery:
             description:
                 S3 delivery configuration options
             value:
@@ -24,18 +21,12 @@ meta:
                 buffer_mbs: 1
                 buffer_seconds: 60
                 compression: GZIP
-        input_stream:
+        shard_count:
             description:
-                Properties of the input Kinesis stream
+                The number of shards in the input and output Kinesis streams
             value:
-                shard_count: 1
-                batch_size: 1
-        output_stream:
-            description:
-                Properties of the output Kinesis stream
-            value:
-                shard_count: 1
-                batch_size: 1
+                input: 1
+                output: 1
         firehose_resource_function_arn:
             description:
                 The ARN of the Lambda function that backs the custom Firehose resource

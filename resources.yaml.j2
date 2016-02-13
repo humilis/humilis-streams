@@ -1,14 +1,11 @@
 ---
 resources:
-    InputStream:
+    {% for io in ['Input', 'Output'] %}
+    {{io}}Stream:
         Type: 'AWS::Kinesis::Stream'
         Properties:
-            ShardCount: {{ input_stream.shard_count }}
-    OutputStream:
-        Type: 'AWS::Kinesis::Stream'
-        Properties:
-            ShardCount: {{ output_stream.shard_count }}
-    DeliveryStream:
+            ShardCount: {{shard_count[io.lower()]}}
+    {{io}}DeliveryStream:
       Type: 'Custom::Firehose'
       Properties:
         ServiceToken: {{firehose_resource_function_arn}}
@@ -20,12 +17,12 @@ resources:
           BucketARN:
             "Fn::Join":
               - ""
-              - ["arn:aws:s3:::", "{{s3_config.bucket_name}}"]
-          Prefix: {{pipeline_name}}/
+              - ["arn:aws:s3:::", "{{delivery.bucket_name}}"]
+          Prefix: {{_layer.name}}/{{io.lower()}}/
           BufferingHints:
-            SizeInMBs: {{s3_config.buffer_mbs}}
-            IntervalInSeconds: {{s3_config.buffer_seconds}}
-          CompressionFormat: {{s3_config.compression}}
+            SizeInMBs: {{delivery.buffer_mbs}}
+            IntervalInSeconds: {{delivery.buffer_seconds}}
+          CompressionFormat: {{delivery.compression}}
     DeliveryStreamRole:
       Type: 'AWS::IAM::Role'
       Properties:
@@ -49,7 +46,7 @@ resources:
                   Resource:
                     "Fn::Join":
                       - ""
-                      - ["arn:aws:s3:::", "{{s3_config.bucket_name}}"]
+                      - ["arn:aws:s3:::", "{{delivery.bucket_name}}"]
                 - Effect: Allow
                   Action:
                     - "s3:GetObject"
@@ -57,4 +54,5 @@ resources:
                   Resource:
                     "Fn::Join":
                       - ""
-                      - ["arn:aws:s3:::", "{{s3_config.bucket_name}}/{{pipeline_name}}/*"]
+                      - ["arn:aws:s3:::", "{{delivery.bucket_name}}/{{pipeline_name}}/*"]
+    {% endfor %}
