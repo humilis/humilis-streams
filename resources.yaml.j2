@@ -54,5 +54,5 @@ resources:
                   Resource:
                     "Fn::Join":
                       - ""
-                      - ["arn:aws:s3:::", "{{delivery.bucket_name}}/{{pipeline_name}}/*"]
+                      - ["arn:aws:s3:::", "{{delivery.bucket_name}}/{{_layer.name}}/*"]
     {% endfor %}
