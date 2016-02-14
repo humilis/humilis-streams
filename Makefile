@@ -29,8 +29,8 @@ clean:
 create: develop
 	$(HUMILIS) create --stage $(STAGE) $(HUMILIS_ENV).yaml
 
-update:
+update: develop
 	$(HUMILIS) update --stage $(STAGE) $(HUMILIS_ENV).yaml
 
-delete:
+delete: develop
 	$(HUMILIS) delete --stage $(STAGE) $(HUMILIS_ENV).yaml
