@@ -1,28 +1,16 @@
 ---
 outputs:
-    {% for io in ['Input', 'Output'] %}
-    {{io}}Stream:
+    {% for stream in streams %}
+    {{stream.name}}:
         Description:
-            The ID of the {{io}} Kinesis stream.
+            The ID of Kinesis stream '{{stream.name}}'.
         Value:
-            Ref: {{io}}Stream
-    {{io}}StreamArn:
+            Ref: {{stream.name}} 
+    {{stream.name}}Arn:
         Description:
-            The Arn of the {{io}} Kinesis stream.
-        Value:
-            "Fn::GetAtt":
-              - {{io}}Stream
-              - Arn
-    {{io}}DeliveryStream:
-        Description:
-            The name of the delivery stream storing {{io.lower()}} events in S3.
-        Value:
-            Ref: {{io}}DeliveryStream
-    {{io}}DeliveryStreamArn:
-        Description:
-            The Arn of the delivery stream storing {{io.lower()}} events in S3.
+            The Arn of Kinesis stream '{{stream.name}}'.
         Value:
             "Fn::GetAtt":
-              - {{io}}DeliveryStream
+              - {{stream.name}} 
               - Arn
     {% endfor %}

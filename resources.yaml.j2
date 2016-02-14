@@ -1,58 +1,8 @@
 ---
 resources:
-    {% for io in ['Input', 'Output'] %}
-    {{io}}Stream:
+    {% for stream in streams %}
+    {{stream.name}}:
         Type: 'AWS::Kinesis::Stream'
         Properties:
-            ShardCount: {{shard_count[io.lower()]}}
-    {{io}}DeliveryStream:
-      Type: 'Custom::Firehose'
-      Properties:
-        ServiceToken: {{firehose_resource_function_arn}}
-        S3DestinationConfiguration:
-          RoleARN:
-            "Fn::GetAtt":
-              - DeliveryStreamRole
-              - Arn
-          BucketARN:
-            "Fn::Join":
-              - ""
-              - ["arn:aws:s3:::", "{{delivery.bucket_name}}"]
-          Prefix: {{_layer.name}}/{{io.lower()}}/
-          BufferingHints:
-            SizeInMBs: {{delivery.buffer_mbs}}
-            IntervalInSeconds: {{delivery.buffer_seconds}}
-          CompressionFormat: {{delivery.compression}}
-    DeliveryStreamRole:
-      Type: 'AWS::IAM::Role'
-      Properties:
-        AssumeRolePolicyDocument:
-          Version: '2012-10-17'
-          Statement:
-            - Effect: Allow
-              Principal:
-                  Service: 'firehose.amazonaws.com'
-              Action: 'sts:AssumeRole'
-        {# Keep all environment roles under the same path #}
-        Path: {{ "/{}/".format(_env.name) }}
-        Policies:
-          - PolicyName: root
-            PolicyDocument:
-              Version: "2012-10-17"
-              Statement:
-                - Effect: Allow
-                  Action:
-                    - "s3:ListBucket"
-                  Resource:
-                    "Fn::Join":
-                      - ""
-                      - ["arn:aws:s3:::", "{{delivery.bucket_name}}"]
-                - Effect: Allow
-                  Action:
-                    - "s3:GetObject"
-                    - "s3:PutObject"
-                  Resource:
-                    "Fn::Join":
-                      - ""
-                      - ["arn:aws:s3:::", "{{delivery.bucket_name}}/{{_layer.name}}/*"]
+            ShardCount: {{stream.shard_count}}
     {% endfor %}

@@ -3,4 +3,4 @@ pytest
 pytest-cov
 mock
 tox
-humilis==0.1.9
+humilis>=0.2.2

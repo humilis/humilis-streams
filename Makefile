@@ -1,31 +1,36 @@
-ENV_FILE := io-streams-test.yaml
+HUMILIS := .env/bin/humilis
+PYTHON := .env/bin/python
+STAGE := DEV
+HUMILIS_ENV := streams
+
 # create virtual environment
 .env:
 	virtualenv .env -p python3.4
 
-# install dev dependencies, create layers directory
-develop: .env
-	.env/bin/pip install -r requirements-dev.txt
+# create symlinks
+symlinks:
 	mkdir -p layers
-	rm -f layers/io-streams
-	ln -fs ../ layers/io-streams
+	rm -f layers/$(HUMILIS_ENV)
+	ln -fs ../ layers/$(HUMILIS_ENV)
+
+# install dev dependencies
+develop: .env symlinks
+	.env/bin/pip install -r requirements-dev.txt
 
 # run test suite
-test:
+test: develop
 	.env/bin/tox
 
 # remove virtualenv and layers dir
 clean:
 	rm -rf .env
-	rm layers/io-streams
+	rm -f layers/$(HUMILIS_ENV)
 
-create:
-	humilis create --stage TEST $(ENV_FILE)
-
+create: develop
+	$(HUMILIS) create --stage $(STAGE) $(HUMILIS_ENV).yaml
 
 update:
-	humilis update --stage TEST $(ENV_FILE)
-
+	$(HUMILIS) update --stage $(STAGE) $(HUMILIS_ENV).yaml
 
 delete:
-	humilis delete --stage TEST $(ENV_FILE)
+	$(HUMILIS) delete --stage $(STAGE) $(HUMILIS_ENV).yaml

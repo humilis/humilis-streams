@@ -1,9 +1,0 @@
----
-outputs:
-    DeliveryStreamArn:
-        Description:
-            The Arn of the delivery stream storing raw events in S3
-        Value:
-            "Fn::GetAtt":
-              - DeliveryStream
-              - Arn

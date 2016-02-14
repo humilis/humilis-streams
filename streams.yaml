@@ -1,0 +1,18 @@
+---
+streams:
+    description:
+        A dummy environment used for testing the streams layer.
+    tags:
+        "cost:chapter": "data"
+        "cost:squad": "product"
+        "cost:project": "nfh-event-tracker"
+    layers:
+        - layer:
+              streams
+          streams:
+              - name: InputStream
+                shard_count: 1
+              - name: OutputStream
+                shard_count: 1
+
+

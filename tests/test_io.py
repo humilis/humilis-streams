@@ -44,7 +44,7 @@ def environment(settings):
 
 
 @pytest.fixture(scope="session", params=['InputStream', 'OutputStream'])
-def io_stream_name(settings, environment, request):
+def stream_name(settings, environment, request):
     """The name of the input and output streams in the rawpipe layer."""
     layer = [l for l in environment.layers if l.name == settings.layer_name][0]
     return layer.outputs.get(request.param)
@@ -56,10 +56,10 @@ def kinesis():
     return boto3.client('kinesis')
 
 
-def test_io_streams_put_get_record(kinesis, io_stream_name, payloads):
+def test_stream_put_get_record(kinesis, stream_name, payloads):
     """Put and read a record from the input stream."""
     response = kinesis.put_records(
-        StreamName=io_stream_name,
+        StreamName=stream_name,
         Records=[
             {
                 "Data": payload,
@@ -71,7 +71,7 @@ def test_io_streams_put_get_record(kinesis, io_stream_name, payloads):
     shardid = response['Records'][0]['ShardId']
     # Try to read the data back from kinesis
     response = kinesis.get_shard_iterator(
-        StreamName=io_stream_name,
+        StreamName=stream_name,
         ShardId=shardid,
         ShardIteratorType='AT_SEQUENCE_NUMBER',
         StartingSequenceNumber=seqnb)

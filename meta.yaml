@@ -1,38 +1,11 @@
 ---
 meta:
     description:
-        Creates an input and output Kinesis stream for an event processing pipeline
-    dependencies:
-        # Depends on the S3 bucket deployed by the storage layer
-        - storage
+        Creates a set of Kinesis streams
     parameters:
-        delivery:
-            description:
-                S3 delivery configuration options
+        streams:
+            description: 
+                The names and shard counts for each stream
             value:
-                bucket_name:
-                    ref:
-                        parser: output
-                        parameters:
-                            layer_name: storage
-                            output_name: BucketName
-                # We use almost no buffering to make debugging easier. These
-                # settings should be changed when we deploy in production.
-                buffer_mbs: 1
-                buffer_seconds: 60
-                compression: GZIP
-        shard_count:
-            description:
-                The number of shards in the input and output Kinesis streams
-            value:
-                input: 1
-                output: 1
-        firehose_resource_function_arn:
-            description:
-                The ARN of the Lambda function that backs the custom Firehose resource
-            value:
-                ref:
-                    parser: output
-                    parameters:
-                        layer_name: firehose-rsc
-                        output_name: CustomResourceFunctionArn
+                - name: Stream
+                  shard_count: 1
