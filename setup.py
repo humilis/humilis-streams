@@ -18,6 +18,7 @@ except(IOError, ImportError, RuntimeError):
 
 setup(
     name=metadata.project,
+    include_package_metadata=True,
     version=metadata.version,
     author=metadata.authors_string,
     author_email=metadata.emails[0],
