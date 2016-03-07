@@ -19,6 +19,7 @@ except(IOError, ImportError, RuntimeError):
 setup(
     name=metadata.project,
     include_package_data=True,
+    packages=["humilis_streams"],
     version=metadata.version,
     author=metadata.authors_string,
     author_email=metadata.emails[0],

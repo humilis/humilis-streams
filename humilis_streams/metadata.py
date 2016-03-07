@@ -3,7 +3,7 @@
 
 package = "humilis_streams"
 project = "humilis-streams"
-version = '0.0.2'
+version = '0.0.3'
 description = "Humilis layer that deploys Kinesis streams"
 authors = ["German Gomez-Herrero"]
 authors_string = ', '.join(authors)
