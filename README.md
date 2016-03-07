@@ -49,30 +49,10 @@ Then you can run the tests using:
 make test
 ```
 
-Don't forget to delete the deployment when are done:
+Don't forget to delete the deployment when you are done:
 
 ```
 make delete
-```
-
-
-## Development
-
-Assuming you have [virtualenv][virtualenv] installed:
-
-[virtualenv]: https://virtualenv.readthedocs.org/en/latest/
-
-```
-make develop
-```
-
-
-## Testing
-
-To run the test suite (requires deployment):
-
-```
-make test
 ```
 
 
