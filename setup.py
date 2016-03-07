@@ -17,7 +17,7 @@ except(IOError, ImportError, RuntimeError):
         long_description = metadata.description
 
 setup(
-    name=metadata.name,
+    name=metadata.project,
     version=metadata.version,
     author=metadata.authors_string,
     author_email=metadata.emails[0],

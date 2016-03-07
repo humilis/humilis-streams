@@ -1,36 +1,34 @@
 HUMILIS := .env/bin/humilis
-PYTHON := .env/bin/python
+PIP := .env/bin/pip
+TOX := .env/bin/tox
 STAGE := DEV
-HUMILIS_ENV := streams
+HUMILIS_ENV := tests/integration/streams
 
 # create virtual environment
 .env:
-	virtualenv .env -p python3.4
+	virtualenv .env -p python3
 
-# create symlinks
-symlinks:
-	mkdir -p layers
-	rm -f layers/$(HUMILIS_ENV)
-	ln -fs ../ layers/$(HUMILIS_ENV)
-
-# install dev dependencies
-develop: .env symlinks
+# install dev dependencies, create layers directory
+develop: .env
 	.env/bin/pip install -r requirements-dev.txt
 
-# run test suite
-test: develop
-	.env/bin/tox
+# run unit tests
+test: .env
+	$(PIP) install tox
+	$(TOX)
 
-# remove virtualenv and layers dir
+# remove .tox and .env dirs
 clean:
-	rm -rf .env
-	rm -f layers/$(HUMILIS_ENV)
+	rm -rf .env .tox
 
+# deploy the test environment
 create: develop
 	$(HUMILIS) create --stage $(STAGE) $(HUMILIS_ENV).yaml
 
+# update the test deployment
 update: develop
 	$(HUMILIS) update --stage $(STAGE) $(HUMILIS_ENV).yaml
 
+# delete the test deployment
 delete: develop
 	$(HUMILIS) delete --stage $(STAGE) $(HUMILIS_ENV).yaml

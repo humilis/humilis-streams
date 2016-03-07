@@ -3,4 +3,11 @@ pytest
 pytest-cov
 mock
 tox
-humilis>=0.2.2
+
+# We need humilis for deployment
+git+https://github.com/InnovativeTravel/humilis
+
+# Install the pluin layer
+-e .
+
+boto3
