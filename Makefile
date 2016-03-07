@@ -1,6 +1,7 @@
 HUMILIS := .env/bin/humilis
 PIP := .env/bin/pip
 TOX := .env/bin/tox
+PYTHON := .env/bin/python
 STAGE := DEV
 HUMILIS_ENV := tests/integration/streams
 

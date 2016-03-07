@@ -1,1 +1,1 @@
-include humilis_fhrsc *.j2 *.yaml
+recursive-include humilis_fhrsc *.j2 *.yaml
