@@ -32,3 +32,8 @@ update: develop
 # delete the test deployment
 delete: develop
 	$(HUMILIS) delete --stage $(STAGE) $(HUMILIS_ENV).yaml
+
+
+# upload to Pypi
+pypi: develop
+	$(PYTHON) setup.py sdist upload

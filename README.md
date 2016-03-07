@@ -1,6 +1,8 @@
 Kinesis Streams
 ==================
 
+[![PyPI](https://img.shields.io/pypi/v/humilis-streams.svg?style=flat)](https://pypi.python.org/pypi/humilis-streams)
+
 A [humilis][humilis] plug-in layer that deploys one ore more
 [Kinesis streams][kinesis]. See [humilis][humilis] documentation for more
 information.
