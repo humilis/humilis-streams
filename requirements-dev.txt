@@ -4,4 +4,10 @@ ipython
 ipdb
 pdbpp
 
+# We need humilis for deployment
+git+https://github.com/InnovativeTravel/humilis
+
+# We need to install the layer in order to deploy it
+-e .
+
 -r requirements-test.txt

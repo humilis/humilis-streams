@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-from setuptools import setup
+from setuptools import setup, find_packages
 
 import humilis_streams.metadata as metadata
 
@@ -19,7 +19,7 @@ except(IOError, ImportError, RuntimeError):
 setup(
     name=metadata.project,
     include_package_data=True,
-    packages=["humilis_streams"],
+    packages=find_packages(),
     version=metadata.version,
     author=metadata.authors_string,
     author_email=metadata.emails[0],
