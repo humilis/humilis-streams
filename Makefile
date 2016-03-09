@@ -13,7 +13,7 @@ HUMILIS_ENV := tests/integration/streams
 develop: .env
 	.env/bin/pip install -r requirements-dev.txt
 
-# run unit tests
+# run integration tests
 test: .env
 	$(PIP) install tox
 	$(TOX)
