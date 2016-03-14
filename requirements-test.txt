@@ -4,3 +4,10 @@ pytest-cov
 mock
 tox
 boto3
+
+# Needed for deployment
+git+https://github.com/InnovativeTravel/humilis
+
+# We need to install the layer in order to deploy it and test it
+-e .
+
