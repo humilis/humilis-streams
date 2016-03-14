@@ -14,7 +14,7 @@ develop: .env
 	.env/bin/pip install -r requirements-dev.txt
 
 # run integration tests
-test: .env
+test: develop
 	$(PIP) install tox
 	$(TOX)
 
