@@ -5,12 +5,16 @@ outputs:
         Description:
             The ID of Kinesis stream '{{stream.name}}'.
         Value:
-            Ref: {{stream.name}} 
+            Ref: {{stream.name}}
     {{stream.name}}Arn:
         Description:
             The Arn of Kinesis stream '{{stream.name}}'.
         Value:
             "Fn::GetAtt":
-              - {{stream.name}} 
+              - {{stream.name}}
               - Arn
+    {{stream.name}}ShardCount:
+        Description:
+            The number of shards in the Kinesis stream '{{stream.name}}'.
+        Value: {{stream.shard_count}}
     {% endfor %}
