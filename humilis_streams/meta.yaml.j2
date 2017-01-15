@@ -1,0 +1,18 @@
+---
+meta:
+    description:
+        Creates a set of Kinesis streams
+    parameters:
+        streams:
+            description:
+                The names and shard counts for each stream
+            value:
+                - name: Stream
+                  shard_count: 1
+        sns_topic:
+            description:
+                The SNS topic where alarm notifications will be posted. This
+                can be either an ARN of an existing topic, or the name of a
+                topic to be created during the creation of this layer.
+            value:
+                {{_env.name}}-{{_env.stage}}-{{_layer.name}}
