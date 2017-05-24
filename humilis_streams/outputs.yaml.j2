@@ -13,8 +13,10 @@ outputs:
             "Fn::GetAtt":
               - {{stream.name}}
               - Arn
+    {% if stream.shard_count %}
     {{stream.name}}ShardCount:
         Description:
             The number of shards in the Kinesis stream '{{stream.name}}'.
         Value: {{stream.shard_count}}
+    {% endif %}
     {% endfor %}
