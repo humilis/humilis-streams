@@ -11,6 +11,7 @@ resources:
         Type: 'AWS::Kinesis::Stream'
         Properties:
             ShardCount: {{stream.shard_count or 1}}
+            RetentionPeriodHours: {{stream.retention_period_hours or 24}}
     {% if sns_topic %}
     {{stream.name}}ReadThroughputAlarm:
       Type: "AWS::CloudWatch::Alarm"
