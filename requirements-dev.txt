@@ -3,5 +3,6 @@ pypandoc
 ipython
 ipdb
 pdbpp
+twine
 
 -r requirements-test.txt

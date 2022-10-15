@@ -5,6 +5,7 @@ __pycache__
 *.egg-info
 .cache
 *.pyc
+dist/
 
 # Ignore the symlink
 layers/lambda-pipeline
